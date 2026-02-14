@@ -23,11 +23,11 @@ export default function RootLayout({
     return (
         <html lang="en" className="dark-flow-bg">
             <body
-                className={`${nunito.className} m-0 p-0`}
+                className={`${nunito.className} m-0 p-0 flex flex-col min-h-screen`}
                 suppressHydrationWarning
             >
                 <Header />
-                {children}
+                <main className="grow">{children}</main>
                 <Footer />
             </body>
         </html>

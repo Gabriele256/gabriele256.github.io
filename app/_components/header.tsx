@@ -3,8 +3,8 @@ import GlassElement from "./glassElement/glassElement";
 
 export default function Header() {
     return (
-        <header className="text-white">
-            <GlassElement className="w-[calc(100%_-_2em)] h-12 m-4 z-100">
+        <header className="text-white sticky top-4 left-0 z-10">
+            <GlassElement className="w-[calc(100%-2em)] h-12 m-4 mt-0 z-100 flex items-center justify-center">
                 <nav className="flex items-center justify-center gap-8 text-xl">
                     <Link
                         href="/"
