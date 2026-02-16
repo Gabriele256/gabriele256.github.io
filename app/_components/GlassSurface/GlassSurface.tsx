@@ -81,6 +81,9 @@ export interface GlassSurfaceProps {
     
     /** Classi CSS aggiuntive da applicare al contenitore */
     className?: string;
+
+    /** Classi CSS aggiuntive da applicare al contenitore */
+    childrenClassName?: string;
     
     /** Stili CSS inline personalizzati */
     style?: React.CSSProperties;
@@ -157,6 +160,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     yChannel = "G",
     mixBlendMode = "difference",
     className = "",
+    childrenClassName = "",
     style = {},
 }) => {
     // Genera ID univoci per evitare conflitti tra istanze multiple
@@ -598,7 +602,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             </svg>
 
             {/* Contenitore del contenuto con padding e z-index elevato */}
-            <div className="w-full h-full flex items-center justify-center p-2 rounded-[inherit] relative z-10">
+            <div className={`z-10 ${childrenClassName}`}>
                 {children}
             </div>
         </div>

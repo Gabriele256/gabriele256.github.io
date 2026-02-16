@@ -4,6 +4,7 @@ import { Nunito } from "next/font/google";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import ColorBends from "./_components/Backgrounds/ColorBlends";
+import SmoothScroll from "./_components/SmoothScroll";
 
 export const metadata: Metadata = {
     title: "Gabriele Rossi",
@@ -30,27 +31,29 @@ export default function RootLayout({
                 className={`${nunito.className} m-0 p-0`}
                 suppressHydrationWarning
             >
-                <main className="z-5 w-full h-full flex flex-col min-h-screen relative">
-                    <ColorBends
-                        colors={["#201B2B", "#261b37", "#1A1921"]}
-                        rotation={0}
-                        speed={0.2}
-                        scale={0.8}
-                        frequency={1.1}
-                        warpStrength={1}
-                        mouseInfluence={0}
-                        parallax={1}
-                        noise={0}
-                        autoRotate={1}
-                        transparent={false}
-                        className="z-0 absolute top-0 left-0"
-                    />
-                    <Header />
-                    <main className="grow flex items-center justify-center">
-                        {children}
+                <SmoothScroll>
+                    <main className="w-full h-full flex flex-col min-h-screen relative">
+                        <ColorBends
+                            colors={["#201B2B", "#261b37", "#1A1921"]}
+                            rotation={0}
+                            speed={0.2}
+                            scale={0.8}
+                            frequency={1.1}
+                            warpStrength={1}
+                            mouseInfluence={0}
+                            parallax={1}
+                            noise={0}
+                            autoRotate={1}
+                            transparent={false}
+                            className="z-0 absolute top-0 left-0"
+                        />
+                        <Header />
+                        <main className="grow flex items-center justify-center">
+                            {children}
+                        </main>
+                        <Footer />
                     </main>
-                    <Footer />
-                </main>
+                </SmoothScroll>
             </body>
         </html>
     );
