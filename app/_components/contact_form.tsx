@@ -1,13 +1,12 @@
 import { Send } from "lucide-react";
-import GlassElement from "./glassElement/glassElement";
+import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
 
 export default function ContactForm() {
     return (
         <div className="h-full w-full flex justify-center items-center">
-            <GlassElement
-                variant="dark"
-                blurAmount={1}
-                shadowIntensity={1}
+            <GlassSurface
+                width={"50%"}
+                height={"100%"}
                 className="min-w-3xl h-full w-full"
             >
                 <form
@@ -115,11 +114,11 @@ export default function ContactForm() {
                             transition-all duration-300 
                             active:scale-95"
                     >
-                        <Send size={20}/>
+                        <Send size={20} />
                         Send
                     </button>
                 </form>
-            </GlassElement>
+            </GlassSurface>
         </div>
     );
 }

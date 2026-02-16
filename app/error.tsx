@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AlertTriangle, RefreshCcw, Home } from "lucide-react";
-import GlassElement from "./_components/glassElement/glassElement";
+import GlassElement from "@/app/_components/GlassSurface/GlassSurface";
 
 export default function Error({
     error,
@@ -15,21 +15,17 @@ export default function Error({
     return (
         <div className="w-full h-full flex items-center justify-center overflow-hidden">
             <GlassElement
-                variant="dark"
-                blurAmount={1}
-                shadowIntensity={1}
-                className="z-1 w-full max-w-2xl"
+                width={"100%"}
+                className="z-1 max-w-2xl"
             >
                 <div className="rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden">
                     <div className="space-y-8 animate-fade-in-up">
                         <div className="flex justify-center">
                             <div className="relative">
                                 <GlassElement
-                                    variant="dark"
-                                    blurAmount={1}
-                                    shadowIntensity={1}
-                                    borderRadius={999}
-                                    className="w-full h-full p-4"
+                                    width={"100%"}
+                                    height={"100%"}
+                                    className="p-4"
                                 >
                                     <AlertTriangle
                                         size={48}

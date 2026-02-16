@@ -1,14 +1,14 @@
 import Link from "next/link";
-import GlassElement from "./glassElement/glassElement";
+import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
 
 export default function Header() {
     return (
-        <header className="text-white sticky top-0 left-0 z-50">
-            <GlassElement
-                variant="dark"
-                blurAmount={1}
-                shadowIntensity={1}
-                className="w-[calc(100%-2em)] h-12 m-4 z-100 flex items-center justify-center"
+        <header className="text-white sticky top-4 left-0 z-50 m-4">
+            <GlassSurface
+                width={"100%"}
+                height={55}
+                borderRadius={30}
+                className=" z-100 flex items-center justify-center"
             >
                 <nav className="flex items-center justify-center gap-8 text-xl">
                     <Link
@@ -36,7 +36,7 @@ export default function Header() {
                         Contact Me
                     </Link>
                 </nav>
-            </GlassElement>
+            </GlassSurface>
         </header>
     );
 }
