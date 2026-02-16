@@ -16,6 +16,8 @@ export default function Error({
         <div className="w-full h-full flex items-center justify-center overflow-hidden">
             <GlassElement
                 width={"100%"}
+                height={"100%"}
+                borderRadius={50}
                 className="z-1 max-w-2xl"
             >
                 <div className="rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden">
@@ -25,11 +27,11 @@ export default function Error({
                                 <GlassElement
                                     width={"100%"}
                                     height={"100%"}
-                                    className="p-4"
+                                    borderRadius={999}
                                 >
                                     <AlertTriangle
                                         size={48}
-                                        className="text-white animate-pulse"
+                                        className="text-white animate-pulse m-4"
                                         strokeWidth={2}
                                     />
                                 </GlassElement>
@@ -42,12 +44,12 @@ export default function Error({
                             </h1>
 
                             <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-200">
-                                Qualcosa è andato storto
+                                Something went wrong
                             </h2>
 
                             <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed max-w-md mx-auto">
-                                Si è verificato un errore inaspettato. Non
-                                preoccuparti, capita anche ai migliori!
+                                An unexpected error occurred. <br />
+                                Don&apos;t worry, it happens to the best of us!
                             </p>
 
                             {error.digest && (
@@ -81,7 +83,7 @@ export default function Error({
                                     size={20}
                                     className="relative group-hover:rotate-180 transition-transform duration-500"
                                 />
-                                <span className="relative">Riprova</span>
+                                <span className="relative">Retry</span>
                             </button>
 
                             <Link

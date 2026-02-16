@@ -1,71 +1,81 @@
+"use client";
+
 import Link from "next/link";
-import { Home, MoveLeft, HelpCircle } from "lucide-react";
+import { Home, HelpCircle } from "lucide-react";
+import GlassElement from "@/app/_components/GlassSurface/GlassSurface";
 
-export default function NotFound() {
+export default function NotFound(){
     return (
-        <div className="relative flex flex-col items-center justify-center min-h-[60vh] px-4 overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.03] pointer-events-none z-0">
-                <span className="text-[15rem] font-black text-main-text">
-                    404
-                </span>
-            </div>
+        <div className="w-full h-full flex items-center justify-center overflow-hidden">
+            <GlassElement
+                width={"100%"}
+                height={"100%"}
+                borderRadius={50}
+                className="z-1 max-w-2xl"
+            >
+                <div className="rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden">
+                    <div className="space-y-8 animate-fade-in-up">
+                        <div className="flex justify-center">
+                            <div className="relative">
+                                <GlassElement
+                                    width={"100%"}
+                                    height={"100%"}
+                                    borderRadius={999}
+                                >
+                                    <HelpCircle
+                                        size={48}
+                                        className="text-white animate-pulse m-4"
+                                        strokeWidth={2}
+                                    />
+                                </GlassElement>
+                            </div>
+                        </div>
 
-            <div className="relative z-10 text-center max-w-md mx-auto animate-slide-up">
+                        <div className="text-center space-y-4">
+                            <h1 className="text-5xl md:text-6xl font-black bg-linear-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent animate-fade-in">
+                                404
+                            </h1>
 
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-neutral-background mb-6">
-                    <HelpCircle size={40} className="text-base-red" />
+                            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-200">
+                                Page not found
+                            </h2>
+
+                            <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed max-w-md mx-auto">
+                                This page appears to have been removed or never existed.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col justify-around sm:flex-row gap-4 pt-4">
+                            <Link
+                                href="/"
+                                className="
+                                    group relative flex items-center justify-center gap-3
+                                    px-8 py-4 rounded-xl
+                                    bg-white/60 dark:bg-slate-800/60
+                                    backdrop-blur-sm
+                                    text-slate-800 dark:text-slate-200 font-semibold text-lg
+                                    border border-slate-300/50 dark:border-slate-700/50
+                                    shadow-lg
+                                    hover:bg-white/80 dark:hover:bg-slate-800/80
+                                    hover:border-slate-400/50 dark:hover:border-slate-600/50
+                                    hover:scale-105
+                                    active:scale-100
+                                    transition-all duration-300
+                                    overflow-hidden
+                                "
+                            >
+                                <div className="absolute inset-0 bg-linear-to-r from-transparent via-slate-200/30 dark:via-slate-700/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+
+                                <Home
+                                    size={20}
+                                    className="relative group-hover:scale-110 transition-transform duration-300"
+                                />
+                                <span className="relative">Home</span>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-
-                <h1 className="text-3xl md:text-4xl font-bold text-main-text mb-3">
-                    Pagina non trovata
-                </h1>
-
-                <p className="text-tertiary-text text-base mb-8 leading-relaxed">
-                    Sembra che la pagina che stavi cercando sia stata spostata,
-                    cancellata o non sia mai esistita.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Link
-                        href="/"
-                        className="
-                            w-[50%] h-16
-                            flex items-center justify-evenly px-6 py-3 
-                            rounded-secondary
-                            bg-base-red 
-                            text-white 
-                            font-semibold 
-                            shadow-[0_4px_15px_rgba(197,24,33,0.2)] 
-                            hover:bg-[#a9151c] 
-                            hover:translate-y-[-2px] 
-                            hover:shadow-[0_6px_20px_rgba(197,24,33,0.3)] 
-                            transition-all duration-300
-                        "
-                    >
-                        <Home size={18} />
-                        Torna alla Home
-                    </Link>
-
-                    <Link
-                        href="/feedback"
-                        className="
-                            w-[50%] h-16
-                            flex items-center justify-evenly px-6 py-3
-                            rounded-secondary
-                            text-main-text
-                            font-semibold
-                            bg-neutral-background
-                            shadow-[0_4px_15px_rgba(0,0,0,0.2)]
-                            hover:translate-y-[-2px] 
-                            hover:bg-main-background
-                            transition-all duration-300
-                        "
-                    >
-                        <MoveLeft size={18} />
-                        Segnala un problema
-                    </Link>
-                </div>
-            </div>
+            </GlassElement>
         </div>
     );
 }
