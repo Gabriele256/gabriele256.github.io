@@ -3,7 +3,7 @@ import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
 
 export default function Header() {
     return (
-        <header className="text-white sticky top-4 left-0 z-50 m-4">
+        <header className="text-white sticky top-4 left-0 z-25 m-4">
             <GlassSurface
                 width={"100%"}
                 height={55}
