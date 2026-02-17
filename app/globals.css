@@ -9,6 +9,18 @@
     height: 0px;
 }
 
+::selection {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    text-shadow: 0 0 10px #7923a4;
+}
+
+::-moz-selection {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    text-shadow: 0 0 10px #7923a4;
+}
+
 .hover-border-animated {
     display: inline-block;
 }

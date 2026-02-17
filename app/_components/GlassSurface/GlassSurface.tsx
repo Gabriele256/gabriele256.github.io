@@ -3,61 +3,61 @@ import React, { useEffect, useRef, useState, useId } from "react";
 
 /**
  * Props per il componente GlassSurface
- * 
+ *
  * @interface GlassSurfaceProps
  */
 export interface GlassSurfaceProps {
     /** Contenuto da renderizzare all'interno della superficie glass */
     children?: React.ReactNode;
-    
+
     /** Larghezza del componente in pixel o come stringa CSS (es: "100%") @default 200 */
     width?: number | string;
-    
+
     /** Altezza del componente in pixel o come stringa CSS @default 80 */
     height?: number | string;
-    
+
     /** Raggio dei bordi arrotondati in pixel @default 20 */
     borderRadius?: number;
-    
+
     /** Spessore del bordo luminoso (0-1) @default 0.07 */
     borderWidth?: number;
-    
+
     /** Luminosità del vetro (0-100) @default 50 */
     brightness?: number;
-    
+
     /** Opacità del vetro (0-1) @default 0.93 */
     opacity?: number;
-    
+
     /** Quantità di blur sul vetro in pixel @default 11 */
     blur?: number;
-    
+
     /** Intensità del displacement/distorsione @default 0 */
     displace?: number;
-    
+
     /** Opacità dello sfondo (0-1) @default 0 */
     backgroundOpacity?: number;
-    
+
     /** Saturazione dei colori (0-n, dove 1 è normale) @default 1 */
     saturation?: number;
-    
+
     /** Scala di base per la distorsione (-200 a 200) @default -180 */
     distortionScale?: number;
-    
+
     /** Offset per il canale rosso nella distorsione @default 0 */
     redOffset?: number;
-    
+
     /** Offset per il canale verde nella distorsione @default 10 */
     greenOffset?: number;
-    
+
     /** Offset per il canale blu nella distorsione @default 20 */
     blueOffset?: number;
-    
+
     /** Canale colore per distorsione asse X @default "R" */
     xChannel?: "R" | "G" | "B";
-    
+
     /** Canale colore per distorsione asse Y @default "G" */
     yChannel?: "R" | "G" | "B";
-    
+
     /** Modalità di blending per i gradienti @default "difference" */
     mixBlendMode?:
         | "normal"
@@ -78,22 +78,28 @@ export interface GlassSurfaceProps {
         | "luminosity"
         | "plus-darker"
         | "plus-lighter";
-    
+
+    /** * Se true, disabilita i filtri SVG avanzati e usa solo CSS standard.
+     * Raccomandato per superfici grandi (> 400px larghezza).
+     * @default false
+     */
+    simple?: boolean;
+
     /** Classi CSS aggiuntive da applicare al contenitore */
     className?: string;
 
     /** Classi CSS aggiuntive da applicare al contenitore */
     childrenClassName?: string;
-    
+
     /** Stili CSS inline personalizzati */
     style?: React.CSSProperties;
 }
 
 /**
  * Hook personalizzato per rilevare la preferenza dark mode del sistema
- * 
+ *
  * @returns {boolean} true se il sistema è in dark mode, false altrimenti
- * 
+ *
  * @example
  * const isDark = useDarkMode();
  * // Usa isDark per adattare gli stili
@@ -112,7 +118,7 @@ const useDarkMode = () => {
         // Ascolta i cambiamenti della preferenza
         const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
         mediaQuery.addEventListener("change", handler);
-        
+
         // Cleanup
         return () => mediaQuery.removeEventListener("change", handler);
     }, []);
@@ -122,10 +128,10 @@ const useDarkMode = () => {
 
 /**
  * Componente GlassSurface
- * 
+ *
  * Crea una superficie con effetto vetro sofisticato utilizzando filtri SVG avanzati.
  * Supporta distorsione cromatica, blur, gradients e si adatta automaticamente a dark/light mode.
- * 
+ *
  * @component
  * @example
  * ```tsx
@@ -159,6 +165,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     xChannel = "R",
     yChannel = "G",
     mixBlendMode = "difference",
+    simple = false,
     className = "",
     childrenClassName = "",
     style = {},
@@ -185,10 +192,10 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
     /**
      * Genera una displacement map SVG dinamica basata sulle dimensioni del contenitore
-     * 
+     *
      * La displacement map è usata per creare l'effetto di distorsione cromatica sul vetro.
      * Include gradienti rossi e blu che vengono blendati per creare il bordo luminoso.
-     * 
+     *
      * @returns {string} Data URI con l'SVG della displacement map
      */
     const generateDisplacementMap = () => {
@@ -196,7 +203,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         const rect = containerRef.current?.getBoundingClientRect();
         const actualWidth = rect?.width || 400;
         const actualHeight = rect?.height || 200;
-        
+
         // Calcola la dimensione del bordo luminoso
         const edgeSize =
             Math.min(actualWidth, actualHeight) * (borderWidth * 0.5);
@@ -237,7 +244,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
      */
     useEffect(() => {
         updateDisplacementMap();
-        
+
         // Configura i canali RGB con i rispettivi offset
         [
             { ref: redChannelRef, offset: redOffset },
@@ -305,23 +312,6 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     }, []);
 
     /**
-     * Effect duplicato: Altro ResizeObserver (considerare di rimuoverlo?)
-     */
-    useEffect(() => {
-        if (!containerRef.current) return;
-
-        const resizeObserver = new ResizeObserver(() => {
-            setTimeout(updateDisplacementMap, 0);
-        });
-
-        resizeObserver.observe(containerRef.current);
-
-        return () => {
-            resizeObserver.disconnect();
-        };
-    }, []);
-
-    /**
      * Effect: Aggiorna la displacement map quando width/height cambiano
      */
     useEffect(() => {
@@ -330,10 +320,10 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
     /**
      * Verifica se il browser supporta i filtri SVG avanzati
-     * 
+     *
      * Controlla specificamente il supporto per backdrop-filter con filtri SVG.
      * Safari/WebKit hanno comportamenti speciali che richiedono gestione particolare.
-     * 
+     *
      * @returns {boolean} true se il browser supporta i filtri SVG, false altrimenti
      */
     const supportsSVGFilters = () => {
@@ -359,7 +349,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
     /**
      * Verifica se il browser supporta backdrop-filter CSS
-     * 
+     *
      * @returns {boolean} true se backdrop-filter è supportato, false altrimenti
      */
     const supportsBackdropFilter = () => {
@@ -369,12 +359,12 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
     /**
      * Calcola gli stili CSS del contenitore in base al supporto browser e dark mode
-     * 
+     *
      * Implementa graceful degradation:
      * 1. SVG filters supportati → Effetto completo con distorsione cromatica
      * 2. Solo backdrop-filter → Effetto glass semplificato
      * 3. Nessun supporto → Fallback con background semitrasparente e bordi
-     * 
+     *
      * @returns {React.CSSProperties} Oggetto con gli stili CSS da applicare
      */
     const getContainerStyles = (): React.CSSProperties => {
@@ -391,7 +381,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         const backdropFilterSupported = supportsBackdropFilter();
 
         // CASO 1: SVG Filters supportati - Effetto completo
-        if (svgSupported) {
+        if (svgSupported && !simple) {
             return {
                 ...baseStyles,
                 background: isDarkMode
@@ -416,7 +406,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         0px 8px 24px rgba(17, 17, 26, 0.05) inset,
                         0px 16px 56px rgba(17, 17, 26, 0.05) inset`,
             };
-        } 
+        }
         // CASO 2 e 3: Fallback per browser senza SVG filters
         else {
             // Dark Mode
@@ -430,7 +420,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
                         inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`,
                     };
-                } 
+                }
                 // CASO 2b: Dark mode con backdrop-filter
                 else {
                     return {
@@ -445,7 +435,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`,
                     };
                 }
-            } 
+            }
             // Light Mode
             else {
                 // CASO 3a: Light mode senza backdrop-filter
@@ -457,7 +447,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
                         inset 0 -1px 0 0 rgba(255, 255, 255, 0.3)`,
                     };
-                } 
+                }
                 // CASO 3b: Light mode con backdrop-filter
                 else {
                     return {
@@ -490,7 +480,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     return (
         <div
             ref={containerRef}
-            className={`${glassSurfaceClasses} ${focusVisibleClasses} ${className}`}
+            className={`${glassSurfaceClasses} ${focusVisibleClasses} ${className} will-change-transform`}
             style={getContainerStyles()}
             suppressHydrationWarning
         >
@@ -498,113 +488,112 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                 SVG con filtri avanzati per l'effetto glass
                 Nascosto ma applicato tramite backdrop-filter CSS
             */}
-            <svg
-                className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <defs>
-                    {/* Filtro principale che implementa la distorsione cromatica */}
-                    <filter
-                        id={filterId}
-                        colorInterpolationFilters="sRGB"
-                        x="0%"
-                        y="0%"
-                        width="100%"
-                        height="100%"
-                    >
-                        {/* Immagine sorgente per la displacement map */}
-                        <feImage
-                            ref={feImageRef}
-                            x="0"
-                            y="0"
+            {!simple && (
+                <svg
+                    className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <defs>
+                        {/* Filtro principale che implementa la distorsione cromatica */}
+                        <filter
+                            id={filterId}
+                            colorInterpolationFilters="sRGB"
+                            x="0%"
+                            y="0%"
                             width="100%"
                             height="100%"
-                            preserveAspectRatio="none"
-                            result="map"
-                        />
+                        >
+                            {/* Immagine sorgente per la displacement map */}
+                            <feImage
+                                ref={feImageRef}
+                                x="0"
+                                y="0"
+                                width="100%"
+                                height="100%"
+                                preserveAspectRatio="none"
+                                result="map"
+                            />
 
-                        {/* Canale ROSSO: Displacement + Isolamento */}
-                        <feDisplacementMap
-                            ref={redChannelRef}
-                            in="SourceGraphic"
-                            in2="map"
-                            id="redchannel"
-                            result="dispRed"
-                        />
-                        <feColorMatrix
-                            in="dispRed"
-                            type="matrix"
-                            values="1 0 0 0 0
+                            {/* Canale ROSSO: Displacement + Isolamento */}
+                            <feDisplacementMap
+                                ref={redChannelRef}
+                                in="SourceGraphic"
+                                in2="map"
+                                id="redchannel"
+                                result="dispRed"
+                            />
+                            <feColorMatrix
+                                in="dispRed"
+                                type="matrix"
+                                values="1 0 0 0 0
                       0 0 0 0 0
                       0 0 0 0 0
                       0 0 0 1 0"
-                            result="red"
-                        />
+                                result="red"
+                            />
 
-                        {/* Canale VERDE: Displacement + Isolamento */}
-                        <feDisplacementMap
-                            ref={greenChannelRef}
-                            in="SourceGraphic"
-                            in2="map"
-                            id="greenchannel"
-                            result="dispGreen"
-                        />
-                        <feColorMatrix
-                            in="dispGreen"
-                            type="matrix"
-                            values="0 0 0 0 0
+                            {/* Canale VERDE: Displacement + Isolamento */}
+                            <feDisplacementMap
+                                ref={greenChannelRef}
+                                in="SourceGraphic"
+                                in2="map"
+                                id="greenchannel"
+                                result="dispGreen"
+                            />
+                            <feColorMatrix
+                                in="dispGreen"
+                                type="matrix"
+                                values="0 0 0 0 0
                       0 1 0 0 0
                       0 0 0 0 0
                       0 0 0 1 0"
-                            result="green"
-                        />
+                                result="green"
+                            />
 
-                        {/* Canale BLU: Displacement + Isolamento */}
-                        <feDisplacementMap
-                            ref={blueChannelRef}
-                            in="SourceGraphic"
-                            in2="map"
-                            id="bluechannel"
-                            result="dispBlue"
-                        />
-                        <feColorMatrix
-                            in="dispBlue"
-                            type="matrix"
-                            values="0 0 0 0 0
+                            {/* Canale BLU: Displacement + Isolamento */}
+                            <feDisplacementMap
+                                ref={blueChannelRef}
+                                in="SourceGraphic"
+                                in2="map"
+                                id="bluechannel"
+                                result="dispBlue"
+                            />
+                            <feColorMatrix
+                                in="dispBlue"
+                                type="matrix"
+                                values="0 0 0 0 0
                       0 0 0 0 0
                       0 0 1 0 0
                       0 0 0 1 0"
-                            result="blue"
-                        />
+                                result="blue"
+                            />
 
-                        {/* Combina i canali RGB con screen blend */}
-                        <feBlend
-                            in="red"
-                            in2="green"
-                            mode="screen"
-                            result="rg"
-                        />
-                        <feBlend
-                            in="rg"
-                            in2="blue"
-                            mode="screen"
-                            result="output"
-                        />
-                        
-                        {/* Blur gaussiano finale per ammorbidire la distorsione */}
-                        <feGaussianBlur
-                            ref={gaussianBlurRef}
-                            in="output"
-                            stdDeviation="0.7"
-                        />
-                    </filter>
-                </defs>
-            </svg>
+                            {/* Combina i canali RGB con screen blend */}
+                            <feBlend
+                                in="red"
+                                in2="green"
+                                mode="screen"
+                                result="rg"
+                            />
+                            <feBlend
+                                in="rg"
+                                in2="blue"
+                                mode="screen"
+                                result="output"
+                            />
 
+                            {/* Blur gaussiano finale per ammorbidire la distorsione */}
+                            <feGaussianBlur
+                                ref={gaussianBlurRef}
+                                in="output"
+                                stdDeviation="0.7"
+                            />
+                        </filter>
+                    </defs>
+                </svg>
+            )}
             {/* Contenitore del contenuto con padding e z-index elevato */}
-            <div className={`z-10 ${childrenClassName}`}>
-                {children}
-            </div>
+            <div className={`z-10 ${childrenClassName}`}>{children}</div>
         </div>
     );
 };

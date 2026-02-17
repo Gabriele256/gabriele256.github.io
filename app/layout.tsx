@@ -48,7 +48,7 @@ export default function RootLayout({
                             className="z-0 absolute top-0 left-0"
                         />
                         <Header />
-                        <main className="grow flex items-center justify-center">
+                        <main className="grow flex items-center justify-center z-1">
                             {children}
                         </main>
                         <Footer />

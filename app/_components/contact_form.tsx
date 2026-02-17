@@ -5,9 +5,9 @@ export default function ContactForm() {
     return (
         <div className="h-full w-full flex justify-center items-center">
             <GlassSurface
-                width={"50%"}
-                height={"100%"}
-                className="min-w-3xl h-full w-full"
+                width={"fit-content"}
+                height={"fit-content"}
+                childrenClassName="min-w-3xl h-full w-full"
             >
                 <form
                     id="contact-form"

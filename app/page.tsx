@@ -1,9 +1,23 @@
 import Image from "next/image";
+import HeroSection from "./_components/HeroSection/HeroSection";
 
 export default function Home() {
-    const imgUrl = "https://images.unsplash.com/photo-1770860354865-415bd1e5af6d?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    const imgUrl =
+        "https://images.unsplash.com/photo-1770860354865-415bd1e5af6d?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
     return (
-        <div className="grow">
+        <div className="grow p-4">
+            <HeroSection>
+                <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-linear-to-br from-white to-white/40">
+                    I&apos;m Gabriele
+                    <br />
+                    Digital Creator From Italy.
+                </h1>
+                <p className="text-lg text-white/70 leading-relaxed">
+                    I&apos;m a self-taught full-stack developer that blend
+                    aesthetics and functionality. My goal is to make the web a
+                    cleaner, and more beautiful place.
+                </p>
+            </HeroSection>
             <main className="max-w-6xl mx-auto p-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[200px] gap-4">
                     <div className="relative md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden group">
