@@ -64,7 +64,7 @@ export const SOFTWARES_TOOLS: string[] = [
     "Github",
     "Terminal",
 ];
-const icon_size:string = "4rem";
+const icon_size:string = "2rem";
 
 export const TECH_STACK_ICONS: Record<string, React.ReactNode> = {
     HTML: <RiHtml5Fill size={icon_size} color="#dd4b25" />,

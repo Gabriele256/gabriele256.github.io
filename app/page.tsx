@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HeroSection from "./_components/HeroSection/HeroSection";
+import HeroSection from "./_components/sections/HeroSection";
 
 export default function Home() {
     const imgUrl =
@@ -18,7 +18,7 @@ export default function Home() {
                     cleaner, and more beautiful place.
                 </p>
             </HeroSection>
-            <main className="max-w-6xl mx-auto p-4">
+            <main className="max-w-6xl mx-auto p-4 mt-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[200px] gap-4">
                     <div className="relative md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden group">
                         <Image

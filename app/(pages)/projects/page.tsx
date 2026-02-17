@@ -1,5 +1,5 @@
-import GithubProjects from "@/app/_components/GithubProjects";
-import HeroSection from "@/app/_components/HeroSection/HeroSection";
+import GithubProjects from "@/app/_components/GithubProjects/GithubProjects";
+import HeroSection from "@/app/_components/sections/HeroSection";
 
 export default function Page() {
     return (

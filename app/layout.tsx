@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Nunito } from "next/font/google";
-import Header from "./_components/header";
-import Footer from "./_components/footer";
+import Header from "./_components/sections/header";
+import Footer from "./_components/sections/footer";
 import ColorBends from "./_components/Backgrounds/ColorBlends";
 import SmoothScroll from "./_components/SmoothScroll";
 

@@ -3,6 +3,7 @@ import { Star, GitFork, ArrowUpRight } from "lucide-react";
 import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
 
 const GITHUB_USERNAME = "Gabriele256";
+// const GITHUB_USERNAME = "madkarmaa";
 
 interface GithubRepo {
     id: number;
