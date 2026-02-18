@@ -33,7 +33,7 @@ export default function Page() {
             </HeroSection>
 
             <section className="mt-8 text-left w-[75vw]">
-                <h1 className="text-5xl mb-6">MY SKILLS</h1>
+                <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-br from-white to-white/40">MY SKILLS</h1>
                 <GlassSurface
                     width={"100%"}
                     height={""}
@@ -80,17 +80,22 @@ export default function Page() {
                     height={""}
                     className="p-8"
                     simple
-                    childrenClassName="flex flex-col items-start justify-start w-full h-full"
+                    childrenClassName="flex flex-col items-start justify-start gap-4 w-full h-full"
                 >
                     <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-br from-white to-white/40 flex flex-row items-center justify-center gap-4">
                         Beyond coding
                         <CoffeeIcon size={"1em"} color="#ffaf00" />
                     </h1>
-                    <div className="w-full">
+                    <div className="w-fit flex flex-row gap-4">
                         <SocialButton
                             icon={<FaGithub />}
                             name="Github"
                             href="https://github.com/Gabriele256/"
+                        />
+                        <SocialButton
+                            icon={<FaLinkedin />}
+                            name="LinkedIn"
+                            href="https://www.linkedin.com/in/gabriele-rossi-7320533b2/"
                         />
                     </div>
                 </GlassSurface>
@@ -142,7 +147,7 @@ function SocialButton({
             href={href}
             target="_blank"
             title={name}
-            className="w-fit p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 text-white transition-all hover:scale-105 flex flex-row items-center justify-center gap-4"
+            className="w-50 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 text-white transition-all hover:scale-105 flex flex-row items-center justify-center gap-4"
         >
             {icon} {name}
         </Link>

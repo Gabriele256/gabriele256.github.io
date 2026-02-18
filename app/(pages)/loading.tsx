@@ -2,7 +2,7 @@ import MetallicPaint from "@/app/_components/MetallicPaint/MetallicPaint";
 
 export default function Loading() {
     return (
-        <div className="z-999 w-screen h-screen relative top-0 left-0 bg-neutral-900 flex items-center justify-center overflow-hidden">
+        <div className="z-999 w-screen h-screen absolute top-0 left-0 bg-neutral-900 flex items-center justify-center overflow-hidden">
             <div className="w-32 h-32">
                 <MetallicPaint
                     imageSrc="/logo.svg"

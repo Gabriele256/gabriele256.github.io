@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaGithub } from "react-icons/fa"; // Assicurati di avere react-icons
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -31,6 +31,12 @@ export default function Footer() {
                         className="text-gray-400 hover:text-sky-400 transition-colors"
                     >
                         <FaGithub size={20} />
+                    </Link>
+                    <Link
+                        href={"https://www.linkedin.com/in/gabriele-rossi-7320533b2/"}
+                        className="text-gray-400 hover:text-sky-400 transition-colors"
+                    >
+                        <FaLinkedin size={20} />
                     </Link>
                 </div>
             </div>
