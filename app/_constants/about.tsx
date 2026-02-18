@@ -10,14 +10,13 @@ import {
 import {
     SiTypescript,
     SiJavascript,
-    SiElectron,
     SiPostgresql,
     SiMysql,
     SiWebstorm,
     SiDatagrip,
     SiKalilinux,
 } from "react-icons/si";
-import { TbBrandCpp, TbBrandCSharp, TbJson } from "react-icons/tb";
+import { TbBrandCpp, TbBrandCSharp } from "react-icons/tb";
 import { AiOutlineDotNet } from "react-icons/ai";
 import {
     FaNode,
@@ -54,10 +53,6 @@ export const SOFTWARES_TOOLS: string[] = [
     "WebStorm",
     "DataGrip",
     "Docker",
-    "Figma",
-    "Ubuntu",
-    "Debian",
-    "Kali Linux",
     "Git",
     "Github",
     "Terminal",
@@ -88,10 +83,6 @@ export const SOFTWARES_TOOLS_ICONS: Record<string, React.ReactNode> = {
     WebStorm: <SiWebstorm size={icon_size} color="#02c6d1" />,
     DataGrip: <SiDatagrip size={icon_size} color="#b64af0" />,
     Docker: <FaDocker size={icon_size} color="#2391e6" />,
-    Figma: <FaFigma size={icon_size} color="#7682f7" />,
-    Ubuntu: <FaUbuntu size={icon_size} color="#d74614" />,
-    Debian: <FaDebian size={icon_size} color="#a3002e" />,
-    "Kali Linux": <SiKalilinux size={icon_size} color="#2673f7" />,
     Git: <FaGitAlt size={icon_size} color="#e84d31" />,
     Github: <FaGithub size={icon_size} />,
     Terminal: <Terminal size={icon_size} color="#3f3f3f" />,
@@ -121,10 +112,6 @@ export const SOFTWARES_TOOLS_DOCS: Record<string, string> = {
     WebStorm: "https://www.jetbrains.com/webstorm/documentation/",
     DataGrip: "https://www.jetbrains.com/datagrip/documentation/",
     Docker: "https://docs.docker.com/",
-    Figma: "https://help.figma.com/hc/en-us",
-    Ubuntu: "https://help.ubuntu.com/",
-    Debian: "https://www.debian.org/doc/",
-    "Kali Linux": "https://www.kali.org/docs/",
     Git: "https://git-scm.com/doc",
     Github: "https://docs.github.com/en",
     Terminal: "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line", // O link alla doc specifica della tua shell (Bash/Zsh/Powershell)

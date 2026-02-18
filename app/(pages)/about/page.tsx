@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
-import { Coffee, CoffeeIcon, Terminal, Zap } from "lucide-react";
+import { CoffeeIcon } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import {
     SOFTWARES_TOOLS,
