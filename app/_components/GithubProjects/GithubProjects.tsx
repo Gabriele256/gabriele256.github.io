@@ -2,9 +2,6 @@ import Link from "next/link";
 import { Star, GitFork, ArrowUpRight } from "lucide-react";
 import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
 
-const GITHUB_USERNAME = "Gabriele256";
-// const GITHUB_USERNAME = "madkarmaa";
-
 interface GithubRepo {
     id: number;
     name: string;
@@ -17,12 +14,9 @@ interface GithubRepo {
 }
 
 async function getRepos(): Promise<GithubRepo[]> {
-    const res = await fetch(
-        `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc`,
-        {
-            next: { revalidate: 3600 },
-        },
-    );
+    const res = await fetch(process.env.GITHUB_URL!, {
+        next: { revalidate: 3600 },
+    });
 
     if (!res.ok) {
         throw new Error("Failed to fetch data");
