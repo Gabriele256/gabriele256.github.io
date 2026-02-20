@@ -58,6 +58,7 @@ export default function Home() {
                     {FEATURED_TECH.map((tech) => (
                         <Link
                             key={tech.name}
+                            target={"_blank"}
                             className="flex items-center gap-2 lg:opacity-40 md:opacity-100 hover:opacity-100 transition-opacity duration-300 group cursor-pointer"
                             href={
                                 TECH_STACK_DOCS[tech.name] ||
@@ -116,7 +117,6 @@ export default function Home() {
                     </h2>
                     <Link
                         href="/projects"
-                        target={"_blank"}
                         className="text-sm text-white/40 hover:text-white transition-colors flex items-center gap-1"
                     >
                         View all <ArrowRightIcon size="0.9em" />
