@@ -28,7 +28,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
 };
 
 async function getRepos(): Promise<GithubRepo[]> {
-    const res = await fetch(process.env.URL!, {
+    const res = await fetch(process.env.URL || "", {
         next: { revalidate: 3600 },
     });
 
@@ -136,7 +136,7 @@ export default async function GithubProjects() {
                                             style={{
                                                 backgroundColor:
                                                     LANGUAGE_COLORS[
-                                                        repo.language
+                                                    repo.language
                                                     ] || "#6b7280",
                                             }}
                                         />

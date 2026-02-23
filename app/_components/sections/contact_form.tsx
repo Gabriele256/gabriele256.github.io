@@ -1,8 +1,34 @@
-import { Send } from "lucide-react";
+"use client"
+
+import { Check, Send } from "lucide-react";
 import GlassSurface from "@/app/_components/GlassSurface/GlassSurface";
 import ScrollReveal from "../ScrollReveal";
+import { useRef, useState } from 'react';
+import { sendEmail } from '@/app/_actions/sendEmail';
+import Loading from "@/app/(pages)/loading";
 
 export default function ContactForm() {
+
+    const ref = useRef<HTMLFormElement>(null);
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (formData: FormData) => {
+        setStatus('loading');
+
+        const result = await sendEmail(formData);
+
+        if (result?.error) {
+            setStatus('error');
+            alert(result.errorMessage);
+        } else {
+            setStatus('success');
+            setTimeout(() => {
+                setStatus('idle');
+            }, 2000);
+            ref.current?.reset();
+        }
+    };
+
     return (
         <ScrollReveal>
             <div className="h-full w-full flex justify-center items-center p-4">
@@ -14,6 +40,8 @@ export default function ContactForm() {
                     simple
                 >
                     <form
+                        ref={ref}
+                        action={handleSubmit}
                         id="contact-form"
                         className="w-full flex flex-col gap-6 p-6 md:p-8"
                     >
@@ -85,6 +113,7 @@ export default function ContactForm() {
                                     id="input-email"
                                     name="input-email"
                                     type="email"
+                                    required={true}
                                     placeholder="your@email.com"
                                 />
                                 <div className="w-full flex flex-col gap-2 sm:gap-0">
@@ -99,6 +128,7 @@ export default function ContactForm() {
                                         id="input-number"
                                         name="input-number"
                                         type="tel"
+                                        required={false}
                                         placeholder="+39 000 000 0000"
                                     />
                                 </div>
@@ -127,15 +157,29 @@ export default function ContactForm() {
                             cursor-pointer 
                             flex flex-row items-center justify-center gap-4
                             bg-white/10 hover:bg-white/20 
-                            text-white hover:text-cyan-600 font-semibold hover:font-black
+                            text-white font-semibold hover:font-black
                             py-3 px-6 
                             rounded-xl border border-white/20 
                             backdrop-blur-md 
                             transition-all duration-300 
                             active:scale-95"
                         >
-                            <Send size={20} />
-                            Send
+                            {status === 'loading' ?
+                                <>
+                                    <Loading />
+                                    Sending...
+                                </> :
+                                status === 'success' ?
+                                    <>
+                                        <Check size={20} color="green" />
+                                        Sent!
+                                    </>
+                                    :
+                                    <>
+                                        <Send size={20} />
+                                        Send
+                                    </>
+                            }
                         </button>
                     </form>
                 </GlassSurface>

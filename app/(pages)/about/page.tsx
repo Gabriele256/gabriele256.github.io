@@ -164,7 +164,6 @@ export default function Page() {
             <ScrollReveal className="text-left w-[90vw] md:w-[75vw] max-w-6xl">
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-br from-white to-white/40 flex items-center gap-4">
                     BEYOND CODING
-                    {/* <CoffeeIcon size={"1em"} color="#ffaf00" /> */}
                 </h2>
 
                 <div className="flex flex-col gap-6">
