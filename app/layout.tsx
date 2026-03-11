@@ -28,7 +28,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const GA_MEASUREMENT_ID = "G-60SH8TS6H3";
+    const GA_MEASUREMENT_ID = "G-N0E63PTS50";
 
     return (
         <html lang="en">
