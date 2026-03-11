@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Nunito } from "next/font/google";
+import { Suspense } from "react";
 import Header from "./_components/sections/header";
 import Footer from "./_components/sections/footer";
 import ColorBends from "./_components/Backgrounds/ColorBlends";
@@ -35,7 +36,9 @@ export default function RootLayout({
                 className={`${nunito.className} m-0 p-0`}
                 suppressHydrationWarning
             >
-                <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+                <Suspense fallback={null}>
+                    <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+                </Suspense>
                 <CookieBanner />
                 <SmoothScroll>
                     <main className="w-full h-full flex flex-col min-h-screen relative">
