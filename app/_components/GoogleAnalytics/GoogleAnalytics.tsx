@@ -18,7 +18,7 @@ export default function GoogleAnalytics({ gaId }: { gaId: string }) {
 
     return (
         <>
-            {/* <Script id="google-consent" strategy="beforeInteractive">
+            <Script id="google-consent" strategy="beforeInteractive">
                 {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
@@ -31,7 +31,7 @@ export default function GoogleAnalytics({ gaId }: { gaId: string }) {
                         'wait_for_update': 500
                     });
                 `}
-            </Script> */}
+            </Script>
 
             <Script
                 src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
