@@ -5,6 +5,8 @@ import Header from "./_components/sections/header";
 import Footer from "./_components/sections/footer";
 import ColorBends from "./_components/Backgrounds/ColorBlends";
 import SmoothScroll from "./_components/SmoothScroll";
+import GoogleAnalytics from "./_components/GoogleAnalytics/GoogleAnalytics";
+import CookieBanner from "./_components/CookieBanner/CookieBanner";
 
 export const metadata: Metadata = {
     title: "Gabriele Rossi",
@@ -25,12 +27,16 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const GA_MEASUREMENT_ID = process.env.GOOGLE_ANALYTICS_ID || "";
+
     return (
         <html lang="en">
             <body
                 className={`${nunito.className} m-0 p-0`}
                 suppressHydrationWarning
             >
+                <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+                <CookieBanner />
                 <SmoothScroll>
                     <main className="w-full h-full flex flex-col min-h-screen relative">
                         <ColorBends
