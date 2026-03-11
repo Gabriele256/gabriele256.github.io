@@ -28,7 +28,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const GA_MEASUREMENT_ID = process.env.GOOGLE_ANALYTICS_ID || "";
+    const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "";
 
     return (
         <html lang="en">
